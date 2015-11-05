@@ -125,8 +125,6 @@ class ScatterMap(object):
         yticks = 4.0*np.arange(0, ny, (yend-ystart+1))/ny+4
         ylocs = (yend-ystart)*(yticks - 4.0)/4
         
-        print yticks
-        print ylocs
         plt.yticks(ylocs, yticks)
         plt.minorticks_on()
         # we generate the colorbar
@@ -142,15 +140,37 @@ class ScatterMap(object):
         plt.show()
     
     def cummulative_frequency(self):
+        # taken from http://stackoverflow.com/questions/15408371/cumulative-distribution-plots-python
+        # make the array onedimensionally
         data = np.ravel(self.map)
+        # sort the data
         sorted_data = np.sort(data) # Or data.sort(), if data can be modified
-
+        x = sorted_data
+        y = np.arange(sorted_data.size)/1000.0
         # Cumulative distributions:
-        plt.step(sorted_data, np.arange(sorted_data.size))  # From 0 to the number of data points-1
+        plt.step(x, y)  # From 0 to the number of data points-1
+        # alternatively cumfreqs, lowlim, binsize, extrapoints = scipy.stats.cumfreq(data, numbins=4)
+        
         plt.title('Cummulative frequency')
         plt.xlabel('e- /pix /4.4s')
-        plt.ylabel('counts')
+        plt.ylabel('1000 counts')
+        plt.xlim(0,100)
+        
+        # see http://matplotlib.org/examples/pylab_examples/axes_demo.html
+        # this is another inset axes over the main axes
+        a = plt.axes([0.4, 0.2, .4, .5])
+        plt.step(x, y)
+        # we want to see minor ticks in the plot, disabled by default
+        plt.minorticks_on()
+        # set the limits for both axis
+        plt.xlim(20, 25)
+        plt.ylim(104,109)
+        
+        plt.savefig('../ScatterMap1_cumfreq.png')
+        plt.savefig('../ScatterMap1_cumfreq.pdf')
         plt.show()
+        # close the plot gracefully
+        plt.close()
 
 if __name__ == '__main__':
     '''
