@@ -172,6 +172,14 @@ class ScatterMap(object):
         # close the plot gracefully
         plt.close()
 
+    def histogram(self):
+        # make the array onedimensionally
+        data = np.ravel(self.map)
+        plt.hist(data, bins=max(data),range=(0,49), histtype='step')
+        plt.xlabel('e- /pix /4.4s')
+        
+        plt.show()
+
 if __name__ == '__main__':
     '''
     here is the main routine. Usually not necessery, but makes the file
@@ -179,5 +187,6 @@ if __name__ == '__main__':
     '''
     makecolormap()
     sm = ScatterMap('/work2/jwe/Projects/ScatterMap/ScatterMap1.txt')
-    sm.cumulative_frequency()
+    sm.histogram()
+    #sm.cumulative_frequency()
     #sm.show()
