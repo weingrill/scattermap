@@ -139,7 +139,7 @@ class ScatterMap(object):
         #show on screen
         plt.show()
     
-    def cummulative_frequency(self):
+    def cumulative_frequency(self):
         # taken from http://stackoverflow.com/questions/15408371/cumulative-distribution-plots-python
         # make the array onedimensionally
         data = np.ravel(self.map)
@@ -151,7 +151,7 @@ class ScatterMap(object):
         plt.step(x, y)  # From 0 to the number of data points-1
         # alternatively cumfreqs, lowlim, binsize, extrapoints = scipy.stats.cumfreq(data, numbins=4)
         
-        plt.title('Cummulative frequency')
+        plt.title('Cumulative frequency')
         plt.xlabel('e- /pix /4.4s')
         plt.ylabel('1000 counts')
         plt.xlim(0,100)
@@ -179,5 +179,5 @@ if __name__ == '__main__':
     '''
     makecolormap()
     sm = ScatterMap('/work2/jwe/Projects/ScatterMap/ScatterMap1.txt')
-    sm.cummulative_frequency()
+    sm.cumulative_frequency()
     #sm.show()
